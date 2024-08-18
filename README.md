@@ -7,9 +7,24 @@
 
 ## Environment setup
 ```bash
+conda create -n fineface python=3.11
+conda activate fineface
+pip install -r requirements.txt
 ```
 ## Running inference
+Commandline:
+Change prompt and AUs from the `demo.py` file
+```bash
+python demo.py
+```
+With python using diffusers
 ```python
+from fineface import FineFacePipeline
+
+pipe = FineFacePipeline()
+prompt = "a closeup of a boy in a park"
+aus = {"AU1": 2.5, "AU6": 2.5, "AU12": 5}
+image = pipe(prompt, aus).images[0]
 ```
 
 ## What are Action Units (AUs)?
