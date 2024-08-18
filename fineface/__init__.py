@@ -1,0 +1,1 @@
+from fineface.fineface_pipeline import FineFacePipeline
