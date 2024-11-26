@@ -3,7 +3,7 @@ from fineface import FineFaceIPAdapterPipeline
 from huggingface_hub import hf_hub_download
 
 #REMOVE CACHE
-pipe = FineFaceIPAdapterPipeline("/scratch/project_462000442/tvaranka/.cache")
+pipe = FineFaceIPAdapterPipeline()
 
 torch.manual_seed(2)
 
