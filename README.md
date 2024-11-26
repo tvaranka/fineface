@@ -26,6 +26,16 @@ prompt = "a closeup of a boy in a park"
 aus = {"AU1": 2.5, "AU6": 2.5, "AU12": 5}
 image = pipe(prompt, aus).images[0]
 ```
+AU + IP-Adapter Pipeline
+```python
+from fineface import FineFaceIPAdapterPipeline
+
+pipe = FineFaceIPAdapterPipeline()
+faceid_embeds = torch.load("path_to_face_embeds.pt")
+prompt = "a man as dark hooded emperor"
+aus = {"AU4": 5, "AU6": 3}
+image = pipe(prompt, aus, faceid_embeds, au_scale=1.0, ip_scale=0.9)
+```
 
 ## What are Action Units (AUs)?
 - Action Units are movements of facial muscles that are identified and used to break down facial expressions, like raising inner eyebrows (AU1).
