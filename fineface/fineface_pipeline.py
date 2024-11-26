@@ -7,19 +7,22 @@ from fineface.au_attention import hack_unet_attn_layers, AUAttnProcessor
 
 
 class AUEncoder(torch.nn.Module):
-    def __init__(self, number_of_aus: int = 12, hidden_dim: int = 64, clip_dim: int = 1024):
+    def __init__(self, number_of_aus: int = 12, hidden_dim: int = 64, clip_dim: int = 1024, pad_zeros: bool = True):
         super().__init__()
         self.au_encoder = nn.Linear(number_of_aus, hidden_dim)
         self.n_aus = number_of_aus
         self.hidden_dim = hidden_dim
         self.clip_dim = clip_dim
+        self.pad_zeros = pad_zeros
+        
     def forward(self, x):
         x = x.clone()
-        x = torch.cat([
-            x,
-            self.au_encoder(x),
-            torch.zeros(x.shape[0], self.clip_dim - self.n_aus - self.hidden_dim).float().to(x.device)
-        ], dim=1)
+        x = torch.cat([x, self.au_encoder(x)], dim=1)
+        if self.pad_zeros:
+            x = torch.cat([
+                x,
+                torch.zeros(x.shape[0], self.clip_dim - self.n_aus - self.hidden_dim).float().to(x.device)
+            ], dim=1)
         x = x.reshape(-1, 1, self.clip_dim)
         return x
 
@@ -35,7 +38,7 @@ class FineFacePipeline:
 
         unet = UNet2DConditionModel.from_pretrained(sd_repo_id, subfolder="unet", cache_dir=cache_dir)
         unet.set_default_attn_processor()
-        hack_unet_attn_layers(unet)
+        hack_unet_attn_layers(unet, AUAttnProcessor)
         unet.load_state_dict(
             torch.load(hf_hub_download(fineface_repo_id, "attn_processors.ckpt"), map_location=self.device),
             strict=False

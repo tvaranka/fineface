@@ -1,1 +1,2 @@
 from fineface.fineface_pipeline import FineFacePipeline
+from fineface.fineface_ip_pipeline import FineFaceIPAdapterPipeline
