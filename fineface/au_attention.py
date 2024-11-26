@@ -1,5 +1,6 @@
 from torch import nn
 import torch
+import torch.nn.functional as F
 
 # modified from https://github.com/ToTheBeginning/PuLID
 # https://github.com/tencent-ailab/IP-Adapter
