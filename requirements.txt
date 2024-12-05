@@ -6,3 +6,5 @@ huggingface_hub==0.23.0
 accelerate==0.28.0
 peft==0.7.0
 numpy==1.26.3
+datasets==2.16.1
+rarfile==4.2
