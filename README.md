@@ -37,6 +37,11 @@ aus = {"AU4": 5, "AU6": 3}
 image = pipe(prompt, aus, faceid_embeds, au_scale=1.0, ip_scale=0.9)
 ```
 
+## Training
+1. Download [DISFA](http://mohammadmahoor.com/disfa/) and [AffectNet](http://mohammadmahoor.com/affectnet/) datasets from their respesctive websites.
+2. Download the *affecnet_metadata.csv* and *disfa_captions.csv* from [here](https://huggingface.co/Tvaranka/fineface/tree/main).
+3. Modify the dataset paths in the `train.sh` script and run.
+
 ## What are Action Units (AUs)?
 - Action Units are movements of facial muscles that are identified and used to break down facial expressions, like raising inner eyebrows (AU1).
 - By mixing different AUs, it is possible to create complex facial expressions, with each AU adding its own unique intensity.
