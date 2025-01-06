@@ -1,0 +1,24 @@
+python train.py \
+  --pretrained_model_name_or_path=stabilityai/stable-diffusion-2-1-base \
+  --resolution=512 \
+  --train_batch_size=4 \
+  --dataloader_num_workers 16 \
+  --gradient_accumulation_steps=3 \
+  --mixed_precision fp16
+  --gradient_checkpointing \
+  --checkpointing_steps 5000 \
+  --max_train_steps=20000 \
+  --validation_steps=2000 \
+  --learning_rate=1e-04 \
+  --max_grad_norm=1 \
+  --lr_scheduler=constant --lr_warmup_steps=0 \
+  --output_dir=fineface \
+  --image_column=image \
+  --caption_colum=aus \
+  --report_to=wandb \
+  --rank=32 \
+  --disfa_image_path "../datasets/disfa/aligned" \
+  --disfa_label_path "../datasets/disfa/ActionUnit_Labels/" \
+  --disfa_captions_file "../datasets/disfa/disfa_captions.csv" \
+  --affectnet_rar_file "../datasets/affecnet/Manually_Annotated.part01.rar" \
+  --affectnet_csv_file "../datasets/affecnet/metadata.csv"
